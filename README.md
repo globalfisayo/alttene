@@ -22,9 +22,25 @@ npm run preview    # serve the production build locally
 
 ## Editing content
 
-- **Blog posts** live in [`src/data/blogPosts.js`](src/data/blogPosts.js). Each post is a plain
-  object (title, slug, HTML content, category, related posts). Add or edit posts there —
-  no database needed. The current posts contain placeholder copy.
+### Blog posts (visual editor — no coding needed)
+
+Blog posts are managed with [Pages CMS](https://pagescms.org), a free visual editor
+that saves directly to this repository. Every save publishes the site automatically.
+
+1. Go to **[app.pagescms.org](https://app.pagescms.org)** and sign in with GitHub.
+2. Open this repository and click **Blog Posts**.
+3. Add or edit a post: title, URL slug, excerpt, rich-text content, date, category,
+   featured image. Click **Save** — the site rebuilds and goes live in ~2 minutes.
+
+Team members without GitHub accounts can be invited by email from the Pages CMS
+**Settings → Collaborators** screen for this repository.
+
+Under the hood each post is a JSON file in [`src/data/posts/`](src/data/posts/)
+(the schema is defined in [`.pages.yml`](.pages.yml)); uploaded images land in
+`public/uploads/`. The current posts contain placeholder copy.
+
+### Everything else
+
 - **Pages** are in `src/pages/` (Home, About, Programs, Impact, Get Involved, Blog, Contact).
 - **Logo** is `src/assets/logo.png` (site) and `public/logo.png` (favicon).
 - The **contact form** currently simulates submission (it shows a success toast but sends

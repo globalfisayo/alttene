@@ -1,7 +1,25 @@
-import blogPosts from '@/data/blogPosts';
+// Blog posts live as JSON files in src/data/posts/ — one file per post.
+// Edit them visually with Pages CMS (see .pages.yml in the repo root) or by hand.
+const modules = import.meta.glob('../data/posts/*.json', { eager: true });
 
 const FALLBACK_IMAGE =
   'https://images.unsplash.com/photo-1456324504439-367cee3b3c32?q=80&w=1200&auto=format&fit=crop';
+
+// Root-relative paths (e.g. "/uploads/photo.jpg" written by the CMS) need the
+// Vite base prefix so they resolve when the site is served from a subpath.
+const withBase = (path) =>
+  path && path.startsWith('/') ? `${import.meta.env.BASE_URL}${path.slice(1)}` : path;
+
+const resolveContentPaths = (html) =>
+  html
+    ? html.replaceAll(/(src|href)="\/uploads\//g, `$1="${import.meta.env.BASE_URL}uploads/`)
+    : html;
+
+const blogPosts = Object.entries(modules).map(([path, mod]) => {
+  const data = mod.default ?? mod;
+  const slug = data.slug || path.split('/').pop().replace(/\.json$/, '');
+  return { ...data, slug, id: slug };
+});
 
 // Parse date-only strings ("2026-05-15") as local midnight — a bare ISO date
 // is treated as UTC and would display one day early west of UTC.
@@ -16,7 +34,7 @@ export function formatPostDate(dateStr, options = { month: 'long', day: 'numeric
 }
 
 export function getAllCategories() {
-  return ['All', ...new Set(blogPosts.map((post) => post.category).filter(Boolean))];
+  return ['All', ...new Set(getAllPosts().map((post) => post.category).filter(Boolean))];
 }
 
 export function getAllPosts(category) {
@@ -33,12 +51,22 @@ export function getRecentPosts(count = 5) {
 export function getPostBySlug(slug) {
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return null;
-  const related = (post.related_posts || [])
-    .map((id) => blogPosts.find((p) => p.id === id))
-    .filter(Boolean);
-  return { ...post, relatedPosts: related };
+
+  // Related posts are picked automatically: same category first (newest
+  // first), padded with the newest posts overall — no manual curation needed.
+  const others = getAllPosts().filter((p) => p.slug !== slug);
+  const sameCategory = others.filter((p) => p.category === post.category);
+  const rest = others.filter((p) => p.category !== post.category);
+  const related = [...sameCategory, ...rest].slice(0, 3);
+
+  return {
+    ...post,
+    content: resolveContentPaths(post.content),
+    pdf_url: withBase(post.pdf_url),
+    relatedPosts: related,
+  };
 }
 
 export function getPostImageUrl(post) {
-  return post?.featured_image || FALLBACK_IMAGE;
+  return withBase(post?.featured_image) || FALLBACK_IMAGE;
 }

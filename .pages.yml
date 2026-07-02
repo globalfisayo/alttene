@@ -1,0 +1,72 @@
+# Pages CMS configuration — visual editor for the Novola blog.
+# Editors sign in at https://app.pagescms.org with GitHub (or via email invite).
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: src/data/posts
+    format: json
+    filename: '{fields.slug}.json'
+    view:
+      fields: [title, category, publication_date, is_featured]
+      primary: title
+      sort: [publication_date, title]
+      default:
+        search: ''
+        sort: publication_date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: slug
+        label: URL slug
+        type: string
+        required: true
+        pattern:
+          regex: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+          message: 'Lowercase letters and numbers only, words separated by hyphens (e.g. my-new-post)'
+        description: 'Becomes the web address of the post, e.g. "my-new-post" → /blog/my-new-post. Cannot be changed easily after publishing.'
+      - name: excerpt
+        label: Excerpt
+        type: text
+        required: true
+        description: 'One or two sentences shown on the blog cards and in search results.'
+      - name: content
+        label: Content
+        type: rich-text
+        required: true
+        options:
+          format: html
+      - name: author
+        label: Author
+        type: string
+        default: 'Novola Team'
+      - name: publication_date
+        label: Publication date
+        type: date
+        required: true
+      - name: category
+        label: Category
+        type: select
+        required: true
+        options:
+          values: [Research, News, Impact, Programs, Resources]
+      - name: is_featured
+        label: Featured post
+        type: boolean
+        default: false
+        description: 'Featured posts appear in the large grid at the top of the blog page.'
+      - name: featured_image
+        label: Featured image
+        type: image
+        description: 'Header image for the post. A default image is used if left empty.'
+      - name: pdf_url
+        label: PDF attachment (optional)
+        type: file
+        description: 'Attach a PDF to show a "Download PDF" button in the post sidebar.'
