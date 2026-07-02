@@ -1,4 +1,4 @@
-# Novola Charity Foundation — fisayo.org
+# Novola Charity Foundation
 
 Marketing site for the Novola Charity Foundation, built with React 18, Vite, Tailwind CSS, and shadcn/ui.
 
@@ -44,9 +44,9 @@ npm run preview    # serve the production build locally
 4. Every push to `main` now deploys automatically via
    [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
 
-### Custom domain (fisayo.org)
+### Custom domain
 
-Add your domain under **Settings → Pages → Custom domain**, then edit
-`.github/workflows/deploy.yml` and change `VITE_BASE` to `/` (there's a comment
-marking the line). Point your DNS at GitHub Pages per
+If you later attach a domain, add it under **Settings → Pages → Custom domain**,
+then edit `.github/workflows/deploy.yml` and change `VITE_BASE` to `/` (there's a
+comment marking the line). Point your DNS at GitHub Pages per
 [GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
