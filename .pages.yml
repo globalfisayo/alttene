@@ -63,10 +63,18 @@ content:
         default: false
         description: 'Featured posts appear in the large grid at the top of the blog page.'
       - name: featured_image
-        label: Featured image
+        label: Featured image (upload)
         type: image
-        description: 'Header image for the post. A default image is used if left empty.'
+        description: 'Header image for the post. Leave empty to use a default image. For a link to an image hosted elsewhere, use the field below instead.'
+      - name: featured_image_url
+        label: Featured image link (paste a URL)
+        type: string
+        description: 'Optional. Paste a link to an image hosted elsewhere (e.g. https://... on Hostinger, Google Drive share link, etc.) instead of uploading. If set, this is used instead of the uploaded image above. Good for large images you do not want stored in the site.'
       - name: pdf_url
-        label: PDF attachment (optional)
+        label: Downloadable file (upload)
         type: file
-        description: 'Attach a PDF to show a "Download PDF" button in the post sidebar.'
+        description: 'Optional. Upload a file (PDF, etc.) to show a "Download file" button in the sidebar. For large files, paste a link in the field below instead of uploading.'
+      - name: attachment_url
+        label: Downloadable file link (paste a URL)
+        type: string
+        description: 'Optional. Paste a link to a file hosted elsewhere (Hostinger, Google Drive, Dropbox, etc.). Use this for LARGE files to keep the site fast and within storage limits. If the upload above is empty, this link powers the "Download file" button.'

@@ -43,6 +43,10 @@ export default [
 			// Critical rules that prevent runtime errors
 			'no-undef': 'error', // Undefined variables cause runtime errors
 
+			// Vite virtual modules (e.g. virtual:posts-index) resolve at build
+			// time, not on disk, so exempt them from the resolver check.
+			'import/no-unresolved': ['error', { ignore: ['^virtual:'] }],
+
 			// Override recommended import rules for stricter checking
 			'import/no-self-import': 'error', // Extremely fast rule, breaking results in infinite loop/bundling error
 

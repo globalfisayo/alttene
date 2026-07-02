@@ -1,24 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { ChevronRight, Calendar, User, Tag, Download, Share2, Quote, ArrowLeft } from 'lucide-react';
+import { ChevronRight, Calendar, User, Tag, Download, Share2, Quote, ArrowLeft, Loader2 } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import RelatedPosts from '@/components/RelatedPosts.jsx';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { getPostBySlug, getPostImageUrl, formatPostDate } from '@/lib/blog';
+import { loadPost, getPostImageUrl, getPostAttachmentUrl, formatPostDate } from '@/lib/blog';
 
 const BlogPostDetail = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const post = getPostBySlug(slug);
+  const [post, setPost] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Scroll to top when slug changes
     window.scrollTo(0, 0);
+    let active = true;
+    setIsLoading(true);
+    loadPost(slug).then((result) => {
+      if (active) {
+        setPost(result);
+        setIsLoading(false);
+      }
+    });
+    return () => {
+      active = false;
+    };
   }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 flex items-center justify-center py-32">
+          <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!post) {
     return (
@@ -47,6 +70,8 @@ const BlogPostDetail = () => {
   const formattedDate = formatPostDate(post.publication_date);
 
   const relatedPosts = post.relatedPosts || [];
+
+  const attachmentUrl = getPostAttachmentUrl(post);
 
   return (
     <>
@@ -149,11 +174,11 @@ const BlogPostDetail = () => {
                       </div>
                     </div>
 
-                    {post.pdf_url && (
+                    {attachmentUrl && (
                       <Button className="w-full bg-white text-primary border border-primary/20 hover:bg-muted shadow-sm mb-6 font-semibold" asChild>
-                        <a href={post.pdf_url} target="_blank" rel="noopener noreferrer">
+                        <a href={attachmentUrl} target="_blank" rel="noopener noreferrer">
                           <Download className="mr-2 h-4 w-4" />
-                          Download PDF
+                          Download file
                         </a>
                       </Button>
                     )}
