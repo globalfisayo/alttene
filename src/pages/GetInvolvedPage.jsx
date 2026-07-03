@@ -22,7 +22,7 @@ const GetInvolvedPage = () => {
       title: 'Volunteer with us',
       description: 'Lend your time and skills to support our programs and community. Volunteering is a hands-on way to grow while giving back.',
       cta: 'Volunteer',
-      link: '#contact',
+      formValue: 'volunteer',
       benefitsIntro:
         'Volunteering with Novola is a rewarding way to build experience while making a real difference in young leaders’ lives.',
       benefits: [
@@ -38,7 +38,7 @@ const GetInvolvedPage = () => {
       title: 'Become a Mentor',
       description: 'Share your expertise and guide the next generation of African leaders. Mentors commit to leading a pod throughout the bootcamp.',
       cta: 'Mentor Fellows',
-      link: '#contact',
+      formValue: 'mentorship',
       benefitsIntro:
         'Mentors shape the next generation of African leaders while sharpening their own leadership along the way.',
       benefits: [
@@ -54,7 +54,7 @@ const GetInvolvedPage = () => {
       title: 'Support Our Mission',
       description: 'Make a tax-deductible donation to help us develop more leaders. Every contribution directly supports fellow scholarships and program excellence.',
       cta: 'Donate Now',
-      link: '#contact',
+      formValue: 'donation',
       benefitsIntro:
         'Your generosity directly funds fellow scholarships and program excellence — every gift creates measurable impact.',
       benefits: [
@@ -68,6 +68,15 @@ const GetInvolvedPage = () => {
   ];
 
   const [selectedBenefits, setSelectedBenefits] = useState(null);
+  // `token` bumps on every click so re-clicking the same CTA still re-applies the
+  // preselect, even if the visitor manually changed the dropdown in between.
+  const [interest, setInterest] = useState({ value: '', token: 0 });
+
+  const goToForm = (formValue) => {
+    setInterest((prev) => ({ value: formValue, token: prev.token + 1 }));
+    setSelectedBenefits(null);
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const sponsorshipTiers = [
     {
@@ -197,8 +206,8 @@ const GetInvolvedPage = () => {
                           <Sparkles className="mr-2 h-4 w-4" />
                           Benefits
                         </Button>
-                        <Button asChild className="w-full sm:flex-1">
-                          <a href={pathway.link}>{pathway.cta}</a>
+                        <Button className="w-full sm:flex-1" onClick={() => goToForm(pathway.formValue)}>
+                          {pathway.cta}
                         </Button>
                       </div>
                     </CardContent>
@@ -230,10 +239,8 @@ const GetInvolvedPage = () => {
                     </li>
                   ))}
                 </ul>
-                <Button asChild className="w-full mt-4">
-                  <a href={selectedBenefits.link} onClick={() => setSelectedBenefits(null)}>
-                    {selectedBenefits.cta}
-                  </a>
+                <Button className="w-full mt-4" onClick={() => goToForm(selectedBenefits.formValue)}>
+                  {selectedBenefits.cta}
                 </Button>
               </>
             )}
@@ -361,7 +368,7 @@ const GetInvolvedPage = () => {
               >
                 <Card>
                   <CardContent className="p-8">
-                    <ContactForm />
+                    <ContactForm defaultInquiry={interest.value} applyToken={interest.token} />
                   </CardContent>
                 </Card>
               </motion.div>

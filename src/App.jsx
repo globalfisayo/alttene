@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -11,6 +11,14 @@ import GetInvolvedPage from './pages/GetInvolvedPage.jsx';
 import ContactPage from './pages/ContactPage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import { Toaster } from '@/components/ui/toaster';
+
+// The admin dashboard (charts + Supabase admin code) is heavy and only used by
+// the team, so it's lazy-loaded — regular visitors never download it.
+const AdminPage = lazy(() => import('./pages/AdminPage.jsx'));
+
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading…</div>
+);
 
 // Follows Vite's base setting so routes work when the site is served
 // from a subpath (e.g. GitHub Pages project sites).
@@ -29,6 +37,14 @@ function App() {
         <Route path="/impact" element={<ImpactPage />} />
         <Route path="/get-involved" element={<GetInvolvedPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route
+          path="/admin"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <AdminPage />
+            </Suspense>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster />
