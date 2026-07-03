@@ -20,7 +20,7 @@ const Footer = () => {
               />
             </div>
             <p className="text-sm leading-relaxed max-w-xs">
-              Empowering African youth for economic leadership through transformative fellowship programs.
+              Empowering African youths for economic leadership through transformative fellowship programs.
             </p>
           </div>
 

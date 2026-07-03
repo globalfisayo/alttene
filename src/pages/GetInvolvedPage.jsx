@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { UserPlus, Users, Heart, Building2, MessageSquare, Search } from 'lucide-react';
+import { UserPlus, Users, Heart, Building2, MessageSquare, Search, Sparkles, CheckCircle2 } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import ContactForm from '@/components/ContactForm.jsx';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 const GetInvolvedPage = () => {
   const pathways = [
     {
       icon: UserPlus,
-      title: 'Apply as Fellow',
-      description: 'Join our next cohort and embark on a transformative leadership journey. Applications are reviewed on a rolling basis.',
-      cta: 'Start Application',
+      title: 'Volunteer with us',
+      description: 'Lend your time and skills to support our programs and community. Volunteering is a hands-on way to grow while giving back.',
+      cta: 'Volunteer',
       link: '#contact',
+      benefitsIntro:
+        'Volunteering with Novola is a rewarding way to build experience while making a real difference in young leaders’ lives.',
+      benefits: [
+        'Gain practical experience supporting real leadership programs',
+        'Grow your professional network across Africa’s changemaker community',
+        'Develop new skills through structured, meaningful roles',
+        'Receive a certificate of service and recognition for your contribution',
+        'Get early access to future fellowship and staff opportunities',
+      ],
     },
     {
       icon: Users,
       title: 'Become a Mentor',
       description: 'Share your expertise and guide the next generation of African leaders. Mentors commit to leading a pod throughout the bootcamp.',
-      cta: 'Express Interest',
+      cta: 'Mentor Fellows',
       link: '#contact',
+      benefitsIntro:
+        'Mentors shape the next generation of African leaders while sharpening their own leadership along the way.',
+      benefits: [
+        'Sharpen your own leadership and coaching skills',
+        'Expand your network with fellow mentors, partners, and alumni',
+        'Leave a lasting legacy by developing emerging leaders',
+        'Gain visibility as a thought leader in your industry',
+        'Enjoy exclusive access to mentor events and resources',
+      ],
     },
     {
       icon: Heart,
@@ -30,8 +55,19 @@ const GetInvolvedPage = () => {
       description: 'Make a tax-deductible donation to help us develop more leaders. Every contribution directly supports fellow scholarships and program excellence.',
       cta: 'Donate Now',
       link: '#contact',
+      benefitsIntro:
+        'Your generosity directly funds fellow scholarships and program excellence — every gift creates measurable impact.',
+      benefits: [
+        'Directly sponsor a fellow’s place in the program',
+        'Receive updates on the real impact your gift creates',
+        'Enjoy tax-deductible giving where applicable',
+        'Optional recognition on our supporters page',
+        'Join a community of changemakers investing in Africa’s future',
+      ],
     },
   ];
+
+  const [selectedBenefits, setSelectedBenefits] = useState(null);
 
   const sponsorshipTiers = [
     {
@@ -152,9 +188,19 @@ const GetInvolvedPage = () => {
                       <CardDescription className="text-base leading-relaxed flex-1 mb-6">
                         {pathway.description}
                       </CardDescription>
-                      <Button asChild className="w-full">
-                        <a href={pathway.link}>{pathway.cta}</a>
-                      </Button>
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <Button
+                          variant="outline"
+                          className="w-full sm:flex-1"
+                          onClick={() => setSelectedBenefits(pathway)}
+                        >
+                          <Sparkles className="mr-2 h-4 w-4" />
+                          Benefits
+                        </Button>
+                        <Button asChild className="w-full sm:flex-1">
+                          <a href={pathway.link}>{pathway.cta}</a>
+                        </Button>
+                      </div>
                     </CardContent>
                   </Card>
                 </motion.div>
@@ -162,6 +208,37 @@ const GetInvolvedPage = () => {
             </div>
           </div>
         </section>
+
+        <Dialog open={!!selectedBenefits} onOpenChange={(open) => !open && setSelectedBenefits(null)}>
+          <DialogContent className="max-w-lg">
+            {selectedBenefits && (
+              <>
+                <DialogHeader>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 mb-3">
+                    <selectedBenefits.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <DialogTitle className="text-2xl">{selectedBenefits.title} — Benefits</DialogTitle>
+                  <DialogDescription className="text-base leading-relaxed pt-2">
+                    {selectedBenefits.benefitsIntro}
+                  </DialogDescription>
+                </DialogHeader>
+                <ul className="space-y-3 mt-2">
+                  {selectedBenefits.benefits.map((benefit, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <CheckCircle2 className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground leading-relaxed">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button asChild className="w-full mt-4">
+                  <a href={selectedBenefits.link} onClick={() => setSelectedBenefits(null)}>
+                    {selectedBenefits.cta}
+                  </a>
+                </Button>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Corporate Sponsorship */}
         <section className="py-20 bg-muted/30">

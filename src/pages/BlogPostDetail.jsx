@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { ChevronRight, Calendar, User, Tag, Download, Share2, Quote, ArrowLeft, Loader2 } from 'lucide-react';
+import { ChevronRight, Calendar, User, Tag, Download, Quote, ArrowLeft, Loader2 } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import RelatedPosts from '@/components/RelatedPosts.jsx';
+import ShareButton from '@/components/ShareButton.jsx';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { loadPost, getPostImageUrl, getPostAttachmentUrl, formatPostDate } from '@/lib/blog';
@@ -154,9 +155,9 @@ const BlogPostDetail = () => {
                   <RelatedPosts relatedPosts={relatedPosts} />
                 </article>
 
-                {/* Sidebar */}
-                <aside className="w-full lg:w-80 flex-shrink-0">
-                  <div className="sticky top-24 bg-card rounded-2xl p-6 border border-border shadow-sm">
+                {/* Sidebar — shown first on mobile so the download is visible at a glance */}
+                <aside className="w-full lg:w-80 flex-shrink-0 order-first lg:order-none">
+                  <div className="lg:sticky lg:top-24 bg-card rounded-2xl p-6 border border-border shadow-sm">
                     <h3 className="text-lg font-bold mb-4 border-b border-border pb-4">About this post</h3>
                     
                     <div className="space-y-4 text-sm mb-6">
@@ -190,10 +191,7 @@ const BlogPostDetail = () => {
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <Button variant="outline" size="sm" className="flex-1" onClick={() => navigator.clipboard.writeText(window.location.href)}>
-                        <Share2 className="mr-2 h-4 w-4" />
-                        Share
-                      </Button>
+                      <ShareButton title={post.title} className="flex-1" />
                       <Button variant="outline" size="sm" className="flex-1">
                         <Quote className="mr-2 h-4 w-4" />
                         Cite
