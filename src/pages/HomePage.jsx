@@ -46,8 +46,12 @@ const HomePage = () => {
         <section className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 z-0">
             <img
-              src="https://images.unsplash.com/photo-1683028223436-439083f1243f"
-              alt="African youth collaborating on leadership initiatives"
+              src={`${import.meta.env.BASE_URL}hero-home.jpg`}
+              alt="Novola team members collaborating over coffee"
+              onError={(e) => {
+                e.currentTarget.src =
+                  'https://images.unsplash.com/photo-1683028223436-439083f1243f';
+              }}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/60"></div>

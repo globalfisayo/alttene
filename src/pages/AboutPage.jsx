@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
 import { Target, Compass, Heart, Lightbulb } from 'lucide-react';
@@ -6,30 +6,49 @@ import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import TeamMemberCard from '@/components/TeamMemberCard.jsx';
 import StreamCard from '@/components/StreamCard.jsx';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from '@/components/ui/dialog';
 
 const AboutPage = () => {
   const team = [
     {
-      name: 'Faith Adesayo Oluwamiyi',
+      name: 'Faith Adesayo Oluwaniyi',
       role: 'Executive Director',
       image: 'https://images.unsplash.com/photo-1671084892448-2ffba4197be2',
+      bio: [],
     },
     {
       name: 'Fisayo Adeyemi',
       role: 'Programs Director',
-      image: 'https://images.unsplash.com/photo-1702467852657-26c7a1d9fceb',
+      image: '/team/fisayo-adeyemi.jpg',
+      bio: [
+        'Fisayo Adeyemi is an investor in people whose personal mission is to help people improve their lives.',
+        'Fisayo graduated with distinction from the University of British Columbia, Canada, with a Masters in clean energy engineering leadership. He holds a first-class bachelor’s degree in petroleum engineering from Covenant University. He also holds postgraduate qualifications in AI and disruptive technologies from MIT and the University of Texas.',
+        'Fisayo brings a macro-economic perspective spanning several industries, including oil and gas, venture capital, clean energy, agriculture, and manufacturing.',
+        'Fisayo is passionate about helping people to improve their lives through global opportunities and economic empowerment, and co-founded Novola Charity Foundation to further this desire.',
+        'In his free time, Fisayo enjoys playing the piano.',
+      ],
     },
     {
       name: 'Folasade Omojola',
       role: 'Partnerships Lead',
       image: 'https://images.unsplash.com/photo-1697759042423-590c7efd2476',
+      bio: [],
     },
     {
       name: 'Oluwatobi Onigbogi',
       role: 'Community Manager',
       image: 'https://images.unsplash.com/photo-1552581234-26160f608093',
+      bio: [],
     },
   ];
+
+  const [selectedMember, setSelectedMember] = useState(null);
 
   const streams = [
     {
@@ -198,11 +217,49 @@ const AboutPage = () => {
                   image={member.image}
                   name={member.name}
                   role={member.role}
+                  hasProfile={member.bio && member.bio.length > 0}
+                  onClick={() => setSelectedMember(member)}
                   delay={index * 0.1}
                 />
               ))}
             </div>
           </div>
+
+          <Dialog open={!!selectedMember} onOpenChange={(open) => !open && setSelectedMember(null)}>
+            <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+              {selectedMember && (
+                <>
+                  <DialogHeader>
+                    <div className="flex items-center gap-4 mb-2">
+                      <div className="h-20 w-20 flex-shrink-0 rounded-full overflow-hidden bg-gradient-to-br from-primary/15 to-secondary/15">
+                        <img
+                          src={selectedMember.image}
+                          alt={selectedMember.name}
+                          className="h-full w-full object-cover"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                          }}
+                        />
+                      </div>
+                      <div className="text-left">
+                        <DialogTitle className="text-2xl">{selectedMember.name}</DialogTitle>
+                        <DialogDescription className="text-primary font-medium mt-1">
+                          {selectedMember.role}
+                        </DialogDescription>
+                      </div>
+                    </div>
+                  </DialogHeader>
+                  <div className="space-y-4 text-muted-foreground leading-relaxed text-left">
+                    {selectedMember.bio && selectedMember.bio.length > 0 ? (
+                      selectedMember.bio.map((paragraph, i) => <p key={i}>{paragraph}</p>)
+                    ) : (
+                      <p>Full profile coming soon.</p>
+                    )}
+                  </div>
+                </>
+              )}
+            </DialogContent>
+          </Dialog>
         </section>
 
         {/* Values */}
