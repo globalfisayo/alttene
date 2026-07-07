@@ -5,7 +5,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
-import { submitApplication } from '@/lib/submissions';
 
 const emptyForm = { name: '', email: '', inquiryType: '', message: '' };
 
@@ -14,9 +13,9 @@ const ContactForm = ({ defaultInquiry = '', applyToken = 0 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({ ...emptyForm, inquiryType: defaultInquiry });
 
-  // Preselect the inquiry type when a "Volunteer / Mentor / Donate" button sends
-  // the visitor here, without wiping anything they've already typed. `applyToken`
-  // bumps on every CTA click so re-clicking the same one re-applies the choice.
+  // Preselect the inquiry type when a CTA button sends the visitor here,
+  // without wiping anything they've already typed. `applyToken` bumps on every
+  // CTA click so re-clicking the same one re-applies the choice.
   useEffect(() => {
     if (defaultInquiry) {
       setFormData((prev) => ({ ...prev, inquiryType: defaultInquiry }));
@@ -37,22 +36,15 @@ const ContactForm = ({ defaultInquiry = '', applyToken = 0 }) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const result = await submitApplication(formData);
+    // Submission is simulated for now — wire this to a form service
+    // (Formspree, a serverless function, etc.) when the backend is ready.
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
     setIsSubmitting(false);
 
-    if (!result.ok) {
-      toast({
-        title: 'Something went wrong',
-        description: 'We could not send your message. Please try again or email us directly.',
-        variant: 'destructive',
-      });
-      return;
-    }
-
     toast({
       title: 'Message sent',
-      description: 'Thank you for reaching out. We will get back to you soon.',
+      description: 'Thanks for reaching out. The Alttene team will get back to you soon.',
     });
     setFormData({ ...emptyForm });
   };
@@ -94,10 +86,11 @@ const ContactForm = ({ defaultInquiry = '', applyToken = 0 }) => {
             <SelectValue placeholder="Select inquiry type" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="volunteer">Volunteer</SelectItem>
-            <SelectItem value="mentorship">Mentor Fellows</SelectItem>
-            <SelectItem value="donation">Donation</SelectItem>
+            <SelectItem value="koffeechat">Koffeechat Early Access</SelectItem>
+            <SelectItem value="consulting">Alto Partners Consulting</SelectItem>
+            <SelectItem value="fisayo">Fisayo.org</SelectItem>
             <SelectItem value="partnership">Partnership Inquiry</SelectItem>
+            <SelectItem value="press">Press & Media</SelectItem>
             <SelectItem value="general">General Question</SelectItem>
           </SelectContent>
         </Select>

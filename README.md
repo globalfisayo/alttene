@@ -1,10 +1,28 @@
-# Novola Charity Foundation
+# Alttene Ventures
 
-Marketing site for the Novola Charity Foundation, built with React 18, Vite, Tailwind CSS, and shadcn/ui.
+Website for **Alttene Ventures** — a venture studio and the home of:
 
-This project was originally created with Hostinger Horizons and has been fully decoupled:
-no Horizons tooling, no PocketBase backend, no paid services required. It builds to plain
-static files you can host anywhere (GitHub Pages, Netlify, Cloudflare Pages, etc.).
+- **Koffeechat** — our flagship product: meaningful conversations, one cup at a time.
+- **Fisayo.org** — our giving-back initiative ([fisayo.org](https://fisayo.org)).
+- **Alto Partners** — our consulting firm (strategy, product, growth).
+
+Built with React 18, Vite, Tailwind CSS, and shadcn/ui. It builds to plain static
+files you can host anywhere (GitHub Pages, Netlify, Cloudflare Pages, etc.) — no
+backend or paid services required.
+
+> **Note on where this code lives:** this site was bootstrapped from the Novola
+> codebase and currently lives on the `claude/alttene-ventures-site-gnwj0q`
+> branch of the `novola` repository, fully separated from Novola's `main` branch
+> (nothing here affects the Novola site). To move it into its own repository:
+>
+> ```bash
+> git clone --branch claude/alttene-ventures-site-gnwj0q \
+>   https://github.com/globalfisayo/novola.git alttene
+> cd alttene
+> git checkout -B main            # make this the new repo's main branch
+> git remote set-url origin https://github.com/globalfisayo/alttene.git
+> git push -u origin main         # after creating the empty "alttene" repo on GitHub
+> ```
 
 ## Develop locally
 
@@ -20,6 +38,17 @@ npm run build      # output in dist/
 npm run preview    # serve the production build locally
 ```
 
+## Site structure
+
+| Route | Page |
+| --- | --- |
+| `/` | Home — studio overview, ecosystem, Koffeechat spotlight |
+| `/about` | Story and values |
+| `/koffeechat` | Flagship product page |
+| `/initiatives` | Fisayo.org and Alto Partners |
+| `/blog`, `/blog/:slug` | Studio blog |
+| `/contact` | Contact form + info |
+
 ## Editing content
 
 ### Blog posts (visual editor — no coding needed)
@@ -32,37 +61,25 @@ that saves directly to this repository. Every save publishes the site automatica
 3. Add or edit a post: title, URL slug, excerpt, rich-text content, date, category,
    featured image. Click **Save** — the site rebuilds and goes live in ~2 minutes.
 
-Team members without GitHub accounts can be invited by email from the Pages CMS
-**Settings → Collaborators** screen for this repository.
-
 Under the hood each post is a JSON file in [`src/data/posts/`](src/data/posts/)
 (the schema is defined in [`.pages.yml`](.pages.yml)); uploaded images land in
-`public/uploads/`. The current posts contain placeholder copy.
+`public/uploads/`.
 
 ### Everything else
 
-- **Pages** are in `src/pages/` (Home, About, Programs, Impact, Get Involved, Blog, Contact).
-- **Logo** is `src/assets/logo.png` (site) and `public/logo.png` (favicon).
-- The **contact form** currently simulates submission (it shows a success toast but sends
-  nothing). Wire it to a form service like Formspree or a serverless function when ready.
+- **Pages** are in `src/pages/` (Home, About, Koffeechat, Initiatives, Blog, Contact).
+- **Theme** — the all-blue palette lives in [`src/index.css`](src/index.css) as CSS
+  variables; change `--primary` / `--secondary` there to retheme the whole site.
+- **Logo** is an inline SVG component: [`src/components/Logo.jsx`](src/components/Logo.jsx)
+  (favicon: `public/favicon.svg`).
+- The **contact form** currently simulates submission (it shows a success toast but
+  sends nothing). Wire it to a form service like Formspree or a serverless function
+  when ready — see `src/components/ContactForm.jsx`.
 
 ## Deploying to GitHub Pages
 
-1. Create an empty repository on GitHub (no README).
-2. Push this project:
-
-   ```bash
-   git remote add origin https://github.com/<your-username>/<repo-name>.git
-   git push -u origin main
-   ```
-
-3. In the repo: **Settings → Pages → Source: GitHub Actions**.
-4. Every push to `main` now deploys automatically via
-   [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
-
-### Custom domain
-
-If you later attach a domain, add it under **Settings → Pages → Custom domain**,
-then edit `.github/workflows/deploy.yml` and change `VITE_BASE` to `/` (there's a
-comment marking the line). Point your DNS at GitHub Pages per
-[GitHub's docs](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+The included workflow (`.github/workflows/deploy.yml`) builds and deploys the site
+to GitHub Pages on every push to `main`. Enable it under
+**Settings → Pages → Source: GitHub Actions**. It currently serves from the default
+`https://<user>.github.io/<repo>/` URL; when Alttene gets a custom domain, add a
+`CNAME` file in `public/` and set `VITE_BASE: /` in the workflow.

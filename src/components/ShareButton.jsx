@@ -13,7 +13,7 @@ import { useToast } from '@/hooks/use-toast';
 const ShareButton = ({ title, className }) => {
   const { toast } = useToast();
   const url = typeof window !== 'undefined' ? window.location.href : '';
-  const shareText = title || 'Novola Charity Foundation';
+  const shareText = title || 'Alttene Ventures';
   const enc = encodeURIComponent;
 
   const links = {

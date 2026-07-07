@@ -24,10 +24,10 @@ const BlogLanding = () => {
   return (
     <>
       <Helmet>
-        <title>Blog & Insights - Novola Charity Foundation</title>
+        <title>Blog & Insights - Alttene Ventures</title>
         <meta
           name="description"
-          content="Understand Novola's latest insights, research, and news on African leadership, economic empowerment, and public governance."
+          content="Notes from the Alttene Ventures studio — Koffeechat product updates, Alto Partners consulting lessons, and news from Fisayo.org."
         />
       </Helmet>
 
@@ -49,10 +49,10 @@ const BlogLanding = () => {
                   <span>Our Blog</span>
                 </div>
                 <h1 className="mb-6 text-foreground text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
-                  Understand Novola's Latest Insights
+                  Notes From the Studio
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl">
-                  Research, updates, and stories from our community of African leaders building a brighter economic future.
+                  Product updates from Koffeechat, lessons from Alto Partners engagements, and stories from the Fisayo.org community.
                 </p>
               </motion.div>
             </div>

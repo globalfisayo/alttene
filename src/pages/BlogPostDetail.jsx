@@ -77,7 +77,7 @@ const BlogPostDetail = () => {
   return (
     <>
       <Helmet>
-        <title>{`${post.title} - Novola Charity Foundation`}</title>
+        <title>{`${post.title} - Alttene Ventures`}</title>
         <meta name="description" content={post.excerpt || post.title} />
       </Helmet>
 
@@ -93,7 +93,7 @@ const BlogPostDetail = () => {
                 alt={post.title}
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-iea-gradient mix-blend-multiply opacity-80"></div>
+              <div className="absolute inset-0 bg-brand-gradient mix-blend-multiply opacity-80"></div>
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent"></div>
             </div>
 
@@ -128,7 +128,7 @@ const BlogPostDetail = () => {
                 <div className="flex flex-wrap items-center gap-6 text-white/80 text-sm font-medium">
                   <div className="flex items-center">
                     <User className="mr-2 h-4 w-4" />
-                    <span>{post.author || 'Novola Team'}</span>
+                    <span>{post.author || 'Alttene Team'}</span>
                   </div>
                   <div className="flex items-center">
                     <Calendar className="mr-2 h-4 w-4" />
@@ -167,7 +167,7 @@ const BlogPostDetail = () => {
                       </div>
                       <div className="flex justify-between items-center py-2 border-b border-border/50">
                         <span className="text-muted-foreground flex items-center"><User className="h-4 w-4 mr-2"/> Author</span>
-                        <span className="font-medium text-right">{post.author || 'Novola Team'}</span>
+                        <span className="font-medium text-right">{post.author || 'Alttene Team'}</span>
                       </div>
                       <div className="flex justify-between items-center py-2 border-b border-border/50">
                         <span className="text-muted-foreground flex items-center"><Tag className="h-4 w-4 mr-2"/> Category</span>

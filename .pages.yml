@@ -1,4 +1,4 @@
-# Pages CMS configuration — visual editor for the Novola blog.
+# Pages CMS configuration — visual editor for the Alttene Ventures blog.
 # Editors sign in at https://app.pagescms.org with GitHub (or via email invite).
 media:
   input: public/uploads
@@ -46,7 +46,7 @@ content:
       - name: author
         label: Author
         type: string
-        default: 'Novola Team'
+        default: 'Alttene Team'
       - name: publication_date
         label: Publication date
         type: date
@@ -56,7 +56,7 @@ content:
         type: select
         required: true
         options:
-          values: [Research, News, Impact, Programs, Resources]
+          values: [Announcements, Product, Consulting, Community, Perspectives]
       - name: is_featured
         label: Featured post
         type: boolean

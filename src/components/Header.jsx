@@ -4,7 +4,7 @@ import { Menu, ChevronDown } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import BlogDropdown from '@/components/BlogDropdown.jsx';
-import logo from '@/assets/logo.png';
+import Logo from '@/components/Logo.jsx';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,10 +13,9 @@ const Header = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
-    { name: 'Programs', path: '/programs' },
+    { name: 'Koffeechat', path: '/koffeechat' },
+    { name: 'Initiatives', path: '/initiatives' },
     { name: 'Blog', path: '/blog', isDropdown: true },
-    { name: 'Impact', path: '/impact' },
-    { name: 'Get Involved', path: '/get-involved' },
     { name: 'Contact', path: '/contact' },
   ];
 
@@ -25,12 +24,8 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container-custom flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2">
-          <img
-            src={logo}
-            alt="Novola Charity Foundation"
-            className="h-10 w-auto"
-          />
+        <Link to="/" aria-label="Alttene Ventures — home">
+          <Logo />
         </Link>
 
         {/* Desktop Navigation */}
@@ -73,7 +68,7 @@ const Header = () => {
 
         <div className="hidden md:block">
           <Button asChild>
-            <Link to="/get-involved">Apply Now</Link>
+            <Link to="/contact">Work With Us</Link>
           </Button>
         </div>
 
@@ -102,8 +97,8 @@ const Header = () => {
                 </Link>
               ))}
               <Button asChild className="mt-4">
-                <Link to="/get-involved" onClick={() => setIsOpen(false)}>
-                  Apply Now
+                <Link to="/contact" onClick={() => setIsOpen(false)}>
+                  Work With Us
                 </Link>
               </Button>
             </div>

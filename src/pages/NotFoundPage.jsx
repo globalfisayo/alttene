@@ -12,7 +12,7 @@ const NotFoundPage = () => {
   return (
     <>
       <Helmet>
-        <title>Page Not Found - Novola Charity Foundation</title>
+        <title>Page Not Found - Alttene Ventures</title>
       </Helmet>
 
       <div className="min-h-screen flex flex-col">

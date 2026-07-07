@@ -15,10 +15,11 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # The site is served from the custom domain novolafoundation.org, so assets
-  # live at the root path. (If you ever remove the custom domain and fall back
-  # to https://<user>.github.io/<repo>/, change this to: /${{ github.event.repository.name }}/ )
-  VITE_BASE: /
+  # No custom domain yet, so the site is served from the default GitHub Pages
+  # URL (https://<user>.github.io/<repo>/) and assets live under the repo-name
+  # subpath. When Alttene gets its own domain, add a CNAME file in public/ and
+  # change this to: /
+  VITE_BASE: /${{ github.event.repository.name }}/
 
 jobs:
   build:

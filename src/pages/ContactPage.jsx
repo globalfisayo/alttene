@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { motion } from 'framer-motion';
-import { Mail, MapPin, Phone, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, MapPin, Phone, Twitter, Linkedin, Instagram } from 'lucide-react';
 import Header from '@/components/Header.jsx';
 import Footer from '@/components/Footer.jsx';
 import ContactForm from '@/components/ContactForm.jsx';
@@ -12,8 +12,8 @@ const ContactPage = () => {
     {
       icon: Mail,
       title: 'Email',
-      details: 'info@novola.org',
-      link: 'mailto:info@novola.org',
+      details: 'hello@alttene.com',
+      link: 'mailto:hello@alttene.com',
     },
     {
       icon: Phone,
@@ -30,7 +30,6 @@ const ContactPage = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, name: 'Facebook', url: 'https://facebook.com' },
     { icon: Twitter, name: 'Twitter', url: 'https://twitter.com' },
     { icon: Linkedin, name: 'LinkedIn', url: 'https://linkedin.com' },
     { icon: Instagram, name: 'Instagram', url: 'https://instagram.com' },
@@ -39,10 +38,10 @@ const ContactPage = () => {
   return (
     <>
       <Helmet>
-        <title>Contact Us - Novola Charity Foundation</title>
+        <title>Contact Us - Alttene Ventures</title>
         <meta
           name="description"
-          content="Get in touch with Novola Charity Foundation. We're here to answer your questions about our fellowship programs."
+          content="Get in touch with Alttene Ventures — about Koffeechat early access, Alto Partners consulting, Fisayo.org, or anything else."
         />
       </Helmet>
 
@@ -60,7 +59,7 @@ const ContactPage = () => {
             >
               <h1 className="mb-6">Let's connect</h1>
               <p className="text-xl text-muted-foreground leading-relaxed">
-                Have questions about our fellowship programs? Want to partner with us? We'd love to hear from you.
+                Curious about Koffeechat? Exploring an engagement with Alto Partners? Partnering with Fisayo.org? We'd love to hear from you.
               </p>
             </motion.div>
           </div>
@@ -193,7 +192,7 @@ const ContactPage = () => {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                title="Novola Charity Foundation Location"
+                title="Alttene Ventures Location"
               ></iframe>
             </motion.div>
           </div>

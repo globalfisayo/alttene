@@ -27,7 +27,7 @@ function postsIndexPlugin() {
           // One malformed post must not take down the whole site build. Warn
           // with the offending filename and skip it; the other posts still ship.
           console.warn(
-            `\n[novola-posts-index] Skipping "${file}" — it is not valid JSON ` +
+            `\n[alttene-posts-index] Skipping "${file}" — it is not valid JSON ` +
               `and was left out of the blog. Fix it and re-save. (${err.message})\n`,
           );
           return null;
@@ -42,7 +42,7 @@ function postsIndexPlugin() {
   };
 
   return {
-    name: 'novola-posts-index',
+    name: 'alttene-posts-index',
     resolveId(id) {
       if (id === VIRTUAL_ID) return RESOLVED_VIRTUAL_ID;
     },
