@@ -11,18 +11,12 @@ files you can host anywhere (GitHub Pages, Netlify, Cloudflare Pages, etc.) — 
 backend or paid services required.
 
 > **Note on where this code lives:** this site was bootstrapped from the Novola
-> codebase and currently lives on the `claude/alttene-ventures-site-gnwj0q`
-> branch of the `novola` repository, fully separated from Novola's `main` branch
-> (nothing here affects the Novola site). To move it into its own repository:
->
-> ```bash
-> git clone --branch claude/alttene-ventures-site-gnwj0q \
->   https://github.com/globalfisayo/novola.git alttene
-> cd alttene
-> git checkout -B main            # make this the new repo's main branch
-> git remote set-url origin https://github.com/globalfisayo/alttene.git
-> git push -u origin main         # after creating the empty "alttene" repo on GitHub
-> ```
+> codebase and its canonical home is now
+> **[github.com/globalfisayo/alttene](https://github.com/globalfisayo/alttene)**
+> (live at [globalfisayo.github.io/alttene](https://globalfisayo.github.io/alttene/)).
+> A snapshot also exists on the `claude/alttene-ventures-site-gnwj0q` branch of
+> the `novola` repository, fully separated from Novola's `main` branch — nothing
+> here affects the Novola site.
 
 ## Develop locally
 
