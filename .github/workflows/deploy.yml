@@ -15,11 +15,10 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # No custom domain yet, so the site is served from the default GitHub Pages
-  # URL (https://<user>.github.io/<repo>/) and assets live under the repo-name
-  # subpath. When Alttene gets its own domain, add a CNAME file in public/ and
-  # change this to: /
-  VITE_BASE: /${{ github.event.repository.name }}/
+  # Served from the custom domain alttene.com (see public/CNAME), so assets
+  # live at the root path. (To fall back to https://<user>.github.io/<repo>/,
+  # remove public/CNAME and set this back to: /${{ github.event.repository.name }}/ )
+  VITE_BASE: /
 
 jobs:
   build:
